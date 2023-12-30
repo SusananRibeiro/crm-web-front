@@ -20,10 +20,14 @@ ul {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    height: 58px;
+    height: 20px;
   }
 
   li a:hover {
+    background-color: #111061;
+  }
+
+  .ativo{
     background-color: #111061;
   }
 

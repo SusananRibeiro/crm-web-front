@@ -9,6 +9,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
   styleUrls: ['./cliente.component.css']
 })
 export class ClienteComponent {
+
   private service: ClienteService = inject(ClienteService);
   public clientes: Cliente[] = [];
 
@@ -19,7 +20,7 @@ export class ClienteComponent {
     this.get();
   }
 
-// GET
+
   public get() {
     this.service.get().subscribe(
         (response: any) => {
@@ -38,8 +39,8 @@ export class ClienteComponent {
     )
 }
 
-// POST e PUT
 public save(formulario: NgForm) {
+
     this.service.save(formulario.value, formulario.value.id).subscribe(
         (response: any) => {
             alert("Cliente salvo com sucesso.")
@@ -123,6 +124,5 @@ public delete(id: number) {
     }
     
   }
-
 
 }
