@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <body>
   <h1>Clientes</h1>
   <div class="btnRelatorio">
@@ -11,12 +12,12 @@
       <tr>
         <th>Código</th>
         <th>Cliente</th>
-        <th>CPF</th>
+        <th>CPF/CNPJ</th>
         <th>Endereço</th>
         <th>Telefone</th>
         <th>E-mail</th>
-        <th>Complemento</th>                 
-        <th></th>
+        <th>Complemento</th>
+        <th></th>                  
       </tr>
     </thead>
     <tbody>
@@ -29,8 +30,8 @@
         <td>{{cliente.email}}</td>
         <td>{{cliente.complemento}}</td>
         <td>      
-          <a id="editar" routerLink="/clientes" (click)="setEditar(cliente)"><img src="assets\imagens\editar-icons.png"></a>    
-          <a id="editar" routerLink="/clientes" (click)="delete(cliente.id)"><img src="assets\imagens\lixo-icons.png"></a>       
+            <button class="btn" (click)="setEditar(cliente)">Editar</button>
+            <button class="btn btn-vermelho" (click)="delete(cliente.id)">Excluir</button>   
       </td>
       </tr>
     </tbody>
@@ -43,7 +44,7 @@
     <div class="container">
         <div class="modal-header">
           <h5 class="modal-title">Cadastrar Cliente</h5>
-          <a id="editar" routerLink="/clientes" (click)="fecharModal()"><img src="assets\imagens\fechar-janela-icons.png"></a>  
+          <a id="editar" routerLink="/clientes" (click)="fecharModal()">X</a>  
         </div>
         <div>
           <form #formulario="ngForm" (ngSubmit)="save(formulario)">
@@ -154,7 +155,8 @@
       </div>
     </div>
 
- <!-------------------------------- FIM do MODAL --------------------------------------------------------------------------------> 
+ <!-------------------------------- FIM do MODAL -------------------------------------------------------------------------------->
+  
 
 </body>
 

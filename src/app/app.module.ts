@@ -6,14 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClienteComponent } from './components/cliente/cliente.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { GerenciamentoComponent } from './components/gerenciamento/gerenciamento.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
     ClienteComponent,
-    NavbarComponent
+    RegistroComponent,
+    GerenciamentoComponent
   ],
   imports: [
     BrowserModule,
