@@ -8,8 +8,9 @@ const routes: Routes = [
   { path: 'clientes', component: ClienteComponent },
   { path: 'registros', component: RegistroComponent },
   { path: 'gerenciamentos', component: GerenciamentoComponent },
-    // // Página padrão (opcional)
-    // { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+
+  // Página padrão
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
 
 ];
 

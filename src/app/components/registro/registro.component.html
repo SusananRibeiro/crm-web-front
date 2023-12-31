@@ -1,2 +1,103 @@
 <app-navbar></app-navbar>
-<p>registro works!</p>
+<body>
+  <h1>Registro de Interações</h1>
+  <div class="btnRelatorio">
+    <div class="btnCadastro">
+      <button type="button" (click)="abrirModal()">Cadastrar Registro de Interações</button> 
+    </div>  
+    </div> 
+<div  class="tabela-com-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Data da Interação</th>
+        <th>Canal de Comunicação</th>
+        <th>Responsavel pela Interação</th>
+        <th>Descrição</th>
+        <th>Status</th>
+        <th></th>                  
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let registro of registros"> 
+        <td>{{registro.id}}</td>
+        <td>{{registro.dataDaInteracao}}</td>
+        <td>{{registro.canalDeComunicacao}}</td>
+        <td>{{registro.responsavelPelaInteracao}}</td>
+        <td>{{registro.descricao}}</td>
+        <td>{{registro.statusDaInterferencia}}</td>
+        <td>      
+            <button class="btn" (click)="setEditar(registro)">Editar</button>
+            <button class="btn btn-vermelho" (click)="delete(registro.id)">Excluir</button>   
+      </td>
+      </tr>
+    </tbody>
+  </table>  
+</div>
+    
+
+  <!-------------------------------- MODAL ------------------------------------------------------------------------------------>
+  <div class="modal-container" id="janelaModal">
+    <div class="container">
+        <div class="modal-header">
+          <h5 class="modal-title">Cadastrar Registro de Interações</h5>
+          <a id="editar" routerLink="/registros" (click)="fecharModal()">X</a>  
+        </div>
+        <div>
+          <form #formulario="ngForm" (ngSubmit)="save(formulario)">
+              <div class="form-group">
+                <div class="formInputSelect">
+                  <label for="id">Código do Registro</label>               
+                  <input id="idRegistro" type="text" name="id" id="id" readonly ngModel>
+                </div>          
+                <div class="formInputSelect">
+                  <label for="dataDaInteracao">Data da Interação*</label>
+                  <input class="dataDaInteracao" type="date" name="dataDaInteracao" id="dataDaInteracao" ngModel required>
+                </div>
+                <div class="formInputSelect">
+                    <label for="canalDeComunicacao">Canal de Comunicação*</label>
+                    <select class="canalDeComunicacao" name="canalDeComunicacao" id="canalDeComunicacao" ngModel required>
+                      <option value="telefone">Telefone</option>
+                      <option value="e-mail">E-mail</option>
+                      <option value="chat online">Chat Online</option>
+                      <option value="pessoalmente">Pessoalmente</option>
+                      <option value="outro meio">Outro meio...</option>
+                    </select>
+                  </div>  
+              </div>
+            <div class="form-group">
+              <div class="formInputSelect">
+                <label for="responsavelPelaInteracao">Responsavel pela Interação*</label>
+                <input class="responsavelPelaInteracao" type="text" name="responsavelPelaInteracao" id="responsavelPelaInteracao" ngModel required>
+              </div>
+              <div class="formInputSelect">
+                <label for="descricao">Descrição*</label>
+                <input class="descricao" type="text" name="descricao" id="descricao" ngModel required>
+              </div>
+              <div class="formInputSelect">
+                <label for="statusDaInterferencia">Status*</label>
+                <select class="statusDaInterferencia" name="statusDaInterferencia" id="statusDaInterferencia" ngModel required>
+                  <option value="ENCAMINHADA_PARA_OUTRO_DEPARTAMENTO">ENCAMINHADA PARA OUTRO DEPARTAMENTO</option>
+                  <option value="REQUER_ACOMPANHAMENTO">REQUER ACOMPANHAMENTO</option>
+                  <option value="RESOLVIDA">RESOLVIDA</option>
+                </select>
+              </div>              
+            </div>                       
+            <div id="modal-botao-centro">
+              <div class="salvar">
+                <button  type="submit" value="Salvar">Salvar</button>
+              </div>
+              <div>
+                <button type="reset" value="Limpar">Limpar</button>
+              </div>             
+            </div>   
+          </form>
+        </div>
+      </div>
+    </div>
+
+ <!-------------------------------- FIM do MODAL -------------------------------------------------------------------------------->
+</body>
+
+
