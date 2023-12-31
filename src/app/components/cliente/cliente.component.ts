@@ -117,12 +117,12 @@ public delete(id: number) {
    }
 }
 
-  fecharModal() {
+fecharModal() {
     const modelDiv = document.getElementById('janelaModal');
     if(modelDiv != null) {
        modelDiv.style.display = 'none'; 
     }
     
-  }
+}
 
 }

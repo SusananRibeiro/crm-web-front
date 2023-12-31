@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { enviroment } from 'src/env/env.dev';
 import { Cliente } from 'src/app/models/Cliente';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,4 +33,5 @@ export class ClienteService {
   public find(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${enviroment.URL_API}/clientes/listarClientes/${id}`);
   }
+  
 }
