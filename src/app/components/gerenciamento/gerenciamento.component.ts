@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Cliente } from 'src/app/models/Cliente';
+import { GerenciamentoDeOportunidadeDeVenda } from 'src/app/models/GerenciamentoDeOportunidadeDeVenda';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { GerenciamentoService } from 'src/app/services/gerenciamento.service';
 
 @Component({
   selector: 'app-gerenciamento',
@@ -7,140 +12,135 @@ import { Component } from '@angular/core';
 })
 export class GerenciamentoComponent {
 
-  // public status: string = "EmAndamento";
-  // private service: ProcessoService = inject(ProcessoService);
-  // private clienteService: ClienteService = inject(ClienteService);
-  // public processos: Processo[] = [];
-  // public clientes: Cliente[] = [];
-  // public clienteId: number | null = null;
 
-  // @ViewChild("formulario") formulario: NgForm | undefined;
+  private service: GerenciamentoService = inject(GerenciamentoService);
+  private clienteService: ClienteService = inject(ClienteService);
+  public gerenciamentos: GerenciamentoDeOportunidadeDeVenda[] = [];
+  public clientes: Cliente[] = [];
+  public clienteId: number | null = null;
 
-  // ngOnInit(): void {
-  //     this.get();
-  // }
+  @ViewChild("formulario") formulario: NgForm | undefined;
 
-  // public get() {
-  //     this.service.getPorUser().subscribe(
-  //         (response: any) => {
-  //             this.processos = response;
-  //         },
-  //         (error: any) => {
-  //             let errorMessage = "Erro desconhecido";
+  ngOnInit(): void {
+      this.get();
+  }
+
+  public get() {
+      this.service.get().subscribe(
+          (response: any) => {
+              this.gerenciamentos = response;
+          },
+          (error: any) => {
+              let errorMessage = "Erro desconhecido";
   
-  //             // Verifica se a resposta contém um corpo e mensagens de erro
-  //             if (error.error && error.error.messages) {
-  //                 // Assume que pode haver várias mensagens, pega a primeira
-  //                 errorMessage = error.error.messages[0];
-  //             }
-  //             alert("Erro ao buscar processo: " + errorMessage)
-  //         }
-  //     )
-  // }
+              // Verifica se a resposta contém um corpo e mensagens de erro
+              if (error.error && error.error.messages) {
+                  // Assume que pode haver várias mensagens, pega a primeira
+                  errorMessage = error.error.messages[0];
+              }
+              alert("Erro: " + errorMessage)
+          }
+      )
+  }
 
-  // public save(formulario: NgForm) {
-  //     this.service.save(formulario.value, formulario.value.id).subscribe(
-  //         (response: any) => {
-  //             alert("Processo salvo com sucesso.")
-  //             formulario.reset();
-  //             this.get();
-  //             this.fecharModal();
-  //         },
-  //         (error: any) => {
-  //             let errorMessage = "Erro desconhecido";
+  public save(formulario: NgForm) {
+      this.service.save(formulario.value, formulario.value.id).subscribe(
+          (response: any) => {
+              alert("Gerenciamento de Oportunidade de Venda salvo com sucesso.")
+              formulario.reset();
+              this.get();
+              this.fecharModal();
+          },
+          (error: any) => {
+              let errorMessage = "Erro desconhecido";
 
-  //             // Verifica se a resposta contém um corpo e mensagens de erro
-  //             if (error.error && error.error.messages) {
-  //                 // Assume que pode haver várias mensagens, pega a primeira
-  //                 errorMessage = error.error.messages[0];
-  //             }
-  //             alert("Erro ao salvar processo: " + errorMessage)
-  //         }
-  //     )
-  // }
+              // Verifica se a resposta contém um corpo e mensagens de erro
+              if (error.error && error.error.messages) {
+                  // Assume que pode haver várias mensagens, pega a primeira
+                  errorMessage = error.error.messages[0];
+              }
+              alert("Erro: " + errorMessage)
+          }
+      )
+  }
 
-  // public setEditar(processo: Processo) {        
-  //     this.service.find(processo.id).subscribe(
-  //         (response: Processo) => {
-  //             this.abrirModal()
-  //             this.formulario?.setValue(response);
-  //             this.status = response.status;
-  //             this.clienteId = response.clienteId;
-  //         },
-  //         (error: any) => {
-  //             let errorMessage = "Erro desconhecido";
+  public setEditar(gerenciamento: GerenciamentoDeOportunidadeDeVenda) {        
+      this.service.find(gerenciamento.id).subscribe(
+          (response: GerenciamentoDeOportunidadeDeVenda) => {
+              this.abrirModal()
+              this.formulario?.setValue(response);
+              this.clienteId = response.clienteId;
+          },
+          (error: any) => {
+              let errorMessage = "Erro desconhecido";
   
-  //             if (error.error && error.error.messages) {
-  //                 errorMessage = error.error.messages[0];
-  //             }
-  //             alert("Erro ao salvar processo: " + errorMessage)
-  //         }
-  //     );
-  // }
+              if (error.error && error.error.messages) {
+                  errorMessage = error.error.messages[0];
+              }
+              alert("Erro ao salvar Gerenciamento de Oportunidade de Venda: " + errorMessage)
+          }
+      );
+  }
 
-  // public delete(id: number) {
-  //     const confirmDelete = confirm('Tem certeza que deseja excluir este processo?');
+  public delete(id: number) {
+      const confirmDelete = confirm('Tem certeza que deseja excluir este Gerenciamento de Oportunidade de Venda?');
 
-  //     if (confirmDelete) {
-  //         this.service.delete(id).subscribe(
-  //             (response: any) => {
-  //                 console.log(response);
-  //                 alert(response.error || 'Processo excluído com sucesso');
-  //                 this.get();
-  //             },
-  //         );
-  //     }
-  // }
+      if (confirmDelete) {
+          this.service.delete(id).subscribe(
+              (response: any) => {
+                  console.log(response);
+                  alert(response.error || 'Gerenciamento de Oportunidade de Venda excluído com sucesso');
+                  this.get();
+              },
+          );
+      }
+  }
 
-  // abrirModal() {
-  //      this.clienteService.getPorUser().subscribe(
-  //          (response: any) => {
-  //              this.clientes = response;
-  //          },
-  //          (error: any) => {
-  //              let errorMessage = "Erro desconhecido";
+  abrirModal() {
+       this.clienteService.get().subscribe(
+           (response: any) => {
+               this.clientes = response;
+           },
+           (error: any) => {
+               let errorMessage = "Erro desconhecido";
 
-  //              if (error.error && error.error.messages) {
-  //                  errorMessage = error.error.messages[0];
-  //              }
-  //              alert("Erro ao buscar clientes: " + errorMessage)
-  //          }
-  //      )
+               if (error.error && error.error.messages) {
+                   errorMessage = error.error.messages[0];
+               }
+               alert("Erro ao buscar clientes: " + errorMessage)
+           }
+       )
 
-  //     const modelDiv = document.getElementById('janelaModal');
-  //     if (modelDiv != null) {
-  //         modelDiv.style.display = 'block';
-  //     }
-  // }
+      const modelDiv = document.getElementById('janelaModal');
+      if (modelDiv != null) {
+          modelDiv.style.display = 'block';
+      }
+  }
 
-  // fecharModal() {
-  //     const modelDiv = document.getElementById('janelaModal');
-  //     if (modelDiv != null) {
-  //         modelDiv.style.display = 'none';
-  //     }
-  //     this.formulario?.reset();   
-  //     this.clienteId = null;
-  //     this.status = "EmAndamento";
-  // }
+  fecharModal() {
+      const modelDiv = document.getElementById('janelaModal');
+      if (modelDiv != null) {
+          modelDiv.style.display = 'none';
+      }
+      this.formulario?.reset();   
+      this.clienteId = null;
+  }
 
-  // abrirDocumento(endereco: string) {
-  //     window.open(endereco, '_blank', 'width=800,height=600');
-  // }
 
-  // onClienteSelectionChange(clienteId: number | null) {
-  //     this.clienteService.getPorUser().subscribe(
-  //         (response: any) => {
-  //             this.clientes = response;
-  //         },
-  //         (error: any) => {
-  //             let errorMessage = "Erro desconhecido";
+  onClienteSelectionChange(clienteId: number | null) {
+      this.clienteService.get().subscribe(
+          (response: any) => {
+              this.clientes = response;
+          },
+          (error: any) => {
+              let errorMessage = "Erro desconhecido";
   
-  //             if (error.error && error.error.messages) {
-  //                 errorMessage = error.error.messages[0];
-  //             }
-  //             alert("Erro ao buscar clientes: " + errorMessage);
-  //         }
-  //     );
-  // }
+              if (error.error && error.error.messages) {
+                  errorMessage = error.error.messages[0];
+              }
+              alert("Erro ao buscar clientes: " + errorMessage);
+          }
+      );
+  }
 
 }
