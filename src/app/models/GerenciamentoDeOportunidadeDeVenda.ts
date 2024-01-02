@@ -3,5 +3,6 @@ export interface GerenciamentoDeOportunidadeDeVenda {
     id: number,
     estagioDaOportunidade: string, // PROSPECT, QUALIFICACAO, PROPOSTA, FECHAMENTO;
     valorEstimadoDaVenda: number,
-    clienteId: Cliente
+    cliente: Cliente
+    clienteId: number,
 }
